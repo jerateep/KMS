@@ -1,0 +1,39 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "authors": [
+    "jerateeps <jerateeps@thaicom.net>"
+  ],
+  "description": "",
+  "main": [
+    "index2.html",
+    "dist/css/AdminLTE.css",
+    "dist/js/adminlte.js",
+    "build/less/AdminLTE.less"
+  ],
+  "keywords": [
+    "css",
+    "js",
+    "html",
+    "template",
+    "admin",
+    "bootstrap",
+    "theme",
+    "backend",
+    "responsive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "/.*",
+    "node_modules",
+    "bower_components",
+    "composer.json",
+    "documentation"
+  ],
+  "dependencies": {
+    "admin-lte": "2.4.18"
+  },
+  "resolutions": {
+    "jquery": "^3.4.1"
+  }
+}
