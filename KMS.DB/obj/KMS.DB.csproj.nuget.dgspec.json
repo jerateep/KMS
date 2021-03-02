@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jerateeps\\Desktop\\dev\\KMS\\KMS.DB\\KMS.DB.csproj": {}
+    "C:\\Users\\jerateeps\\Desktop\\Dev\\KMS\\KMS.DB\\KMS.DB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jerateeps\\Desktop\\dev\\KMS\\KMS.DB\\KMS.DB.csproj": {
+    "C:\\Users\\jerateeps\\Desktop\\Dev\\KMS\\KMS.DB\\KMS.DB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jerateeps\\Desktop\\dev\\KMS\\KMS.DB\\KMS.DB.csproj",
+        "projectUniqueName": "C:\\Users\\jerateeps\\Desktop\\Dev\\KMS\\KMS.DB\\KMS.DB.csproj",
         "projectName": "KMS.DB",
-        "projectPath": "C:\\Users\\jerateeps\\Desktop\\dev\\KMS\\KMS.DB\\KMS.DB.csproj",
+        "projectPath": "C:\\Users\\jerateeps\\Desktop\\Dev\\KMS\\KMS.DB\\KMS.DB.csproj",
         "packagesPath": "C:\\Users\\jerateeps\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jerateeps\\Desktop\\dev\\KMS\\KMS.DB\\obj\\",
+        "outputPath": "C:\\Users\\jerateeps\\Desktop\\Dev\\KMS\\KMS.DB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jerateeps\\AppData\\Roaming\\NuGet\\NuGet.Config",

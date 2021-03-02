@@ -1,0 +1,118 @@
+﻿@model KMS.DB.Models.KMS_User
+
+@{
+    ViewData["Title"] = "Update Profile";
+    string strImageUrl = "/Images/user.png";
+    if (ViewBag.UserImage != "")
+    {
+        strImageUrl = "data:image;base64," + ViewBag.UserImage;
+    }
+}
+<section class="content-header">
+    <h1>
+        User Profile
+    </h1>
+    <hr />
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-success">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="@strImageUrl" alt="User profile picture">
+                    <h3 class="profile-username text-center">@Model.FName @Model.LName</h3>
+                    <p class="text-muted text-center"></p>
+                    <br />
+                    <form asp-action="UploadImageProfile" enctype="multipart/form-data" method="post">
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.Username)
+                            <hr />
+                            <h6 style="text-align:center">Upload Picture Profile</h6>
+                            <input type="file" class="custom-file-input" name="_file" accept="image/x-png,image/gif,image/jpeg" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-info">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="nav-tabs-custom tab-success">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="settings">
+                        <form class="form-horizontal" asp-action="Save">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Username" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <label class="form-control"><strong>@Model.Username</strong></label>
+                                    @Html.HiddenFor(m => m.Username)
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="FName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="FName" class="form-control" />
+                                    <span asp-validation-for="FName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="LName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="LName" class="form-control" />
+                                    <span asp-validation-for="LName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Email" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <br /><br />
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            const Message = '@ViewBag.MsgBox';
+            var arrMsg = Message.split(',');
+            if ('@ViewBag.MsgBox' != "") {
+                AlertMsg("", arrMsg[1], arrMsg[0])
+            }
+        });
+        function AlertMsg(title, msg, icon) {
+            swal.fire({
+                //position: 'top-end',
+                title: title,
+                text: msg,
+                icon: icon,
+                //timer: 1500
+            });
+        }
+    </script>
+
+}
