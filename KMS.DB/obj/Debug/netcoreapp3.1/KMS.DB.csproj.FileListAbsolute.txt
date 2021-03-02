@@ -1,0 +1,12 @@
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.AssemblyInfoInputs.cache
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.AssemblyInfo.cs
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.csproj.CoreCompileInputs.cache
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\bin\Debug\netcoreapp3.1\KMS.DB.deps.json
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\bin\Debug\netcoreapp3.1\KMS.DB.dll
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\bin\Debug\netcoreapp3.1\KMS.DB.pdb
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.dll
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.pdb
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\bin\Debug\netcoreapp3.1\KMS.DB.runtimeconfig.json
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\bin\Debug\netcoreapp3.1\KMS.DB.runtimeconfig.dev.json
+C:\Users\jerateeps\Desktop\Dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.genruntimeconfig.cache
+C:\Users\jerateeps\Desktop\dev\KMS\KMS.DB\obj\Debug\netcoreapp3.1\KMS.DB.csprojAssemblyReference.cache

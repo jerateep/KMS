@@ -1,4 +1,4 @@
-﻿using KMS.Web.Models;
+﻿using KMS.DB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

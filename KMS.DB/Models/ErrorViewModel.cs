@@ -1,6 +1,6 @@
 using System;
 
-namespace KMS.Web.Models
+namespace KMS.DB.Models
 {
     public class ErrorViewModel
     {

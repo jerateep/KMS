@@ -1,3 +1,4 @@
+using KMS.DB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Proxies;
+using Microsoft.EntityFrameworkCore;
 
 namespace KMS.Web
 {
@@ -29,6 +32,8 @@ namespace KMS.Web
             {
                 option.IdleTimeout = TimeSpan.FromSeconds(50000); ;
             });
+            string MySQLCon = "server=localhost;database=KMS;user=root;password=Abc@12345;TreatTinyAsBoolean=true;";
+            services.AddDbContext<MySQLContext>(option => option.UseLazyLoadingProxies().UseMySql(MySQLCon));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
