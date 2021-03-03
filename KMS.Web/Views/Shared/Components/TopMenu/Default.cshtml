@@ -1,4 +1,11 @@
 ﻿@model IList<KMS.ViewModels.MenuItem>
+@{
+    var strImageUrl = Url.Content("~/Images/user.png");
+    if (ViewBag.UserImage != "")
+    {
+        strImageUrl = "data:image;base64, " + ViewBag.UserImage;
+    }
+}
 <!-- Main Header -->
 <header class="main-header">
     <a href="#" class="logo">
@@ -19,14 +26,13 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        @*<img alt="img" class="user-image" src="~/EmpImage.ashx?id=@Html.Raw(Session["login"] as string)" />*@
+                        <img src="@strImageUrl" class="user-image" alt="User Image">
                         @ViewBag.User [@ViewBag.UserName]
                     </a>
                     <ul class="dropdown-menu" id="ulUserDetail" runat="server">
                         <!-- User image -->
                         <li class="user-header">
-                            @*<img alt="img" class="img-responsive img-circle center-block" src="~/EmpImage.ashx?id=@Html.Raw(Session["login"] as string)" style="border-width:0px;" width="100px" height="100px" />*@
-
+                            <img src="@strImageUrl" class="img-circle" alt="User Image">
                             <p class="font-10"><small>@ViewBag.User [@ViewBag.PersNo]</small></p>
                             <p class="font-10"><small></small></p>
                             <p class="font-10"><small>@ViewBag.Position / @ViewBag.BU</small></p>

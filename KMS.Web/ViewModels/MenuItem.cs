@@ -16,6 +16,8 @@ namespace KMS.ViewModels
             IEnumerable<MenuItem> Data = new List<MenuItem> 
             {
                 new MenuItem { Title = "Home", Url = "~/",Icon ="fa fa-home" },
+                new MenuItem { Title = "User", Url = "~/Auth/ListUser",Icon ="fa fa-user" },
+
              };
             return Data;
         }

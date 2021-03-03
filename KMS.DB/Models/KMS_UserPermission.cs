@@ -13,6 +13,7 @@ namespace KMS.DB.Models
         public int UpId { get; set; }
         [StringLength(50)]
         public string Username { get; set; }
+        [ForeignKey("Username")]
         public virtual KMS_User User { get; set; }
         public int PermissionId { get; set; }
         [ForeignKey("PermissionId")]

@@ -1,4 +1,5 @@
 ﻿
+using KMS.DB.Models;
 using KMS.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,17 @@ namespace KMS.Web.ViewComponents
         {
             string Username = HttpContext.Session.GetString("login");
 
-            var UserData = 
+            var UserData = new KMS_User();
             ViewBag.User = "ชื่อจริง" + " " + "นามสกุล";
             ViewBag.UserName = "UserName";
             ViewBag.Position = "ตำแหน่ง";
             ViewBag.BU = "หน่วยงาน";
+            string ImageProfile = "";
+            if (UserData.UserImage != null)
+            {
+                ImageProfile = GetImageProfile(UserData.UserImage);
+            }
+            ViewBag.UserImage = ImageProfile;
             var Menus = MenuItem.MenuItems();
             //foreach (var m in Menus)
             //{

@@ -7,9 +7,11 @@ using System.Web;
 using KMS.DB.Data;
 using KMS.DB.Models;
 using KMS.Web.Extensions;
+using KMS.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -70,40 +72,66 @@ namespace Express.Web.Controllers
         }
         public IActionResult Edit(string Username)
         {
-            string UserName = HttpContext.Session.GetString("login");
-            if (!string.IsNullOrEmpty(UserName))
+            string Sessionlogin = HttpContext.Session.GetString("login");
+            if (!string.IsNullOrEmpty(Sessionlogin))
             {
-                KMS_User User = new KMS_User();
-                User = _ent.KMS_User.Where(k => k.Username == Username).FirstOrDefault();
-                return View(User);
+                ProfileViewModel Profile = new ProfileViewModel();
+                Profile.User = _ent.KMS_User.Where(k => k.Username == Username).Include(o => o.Permission).FirstOrDefault();
+                Profile.LstPermission = _ent.KMS_Permission.Where(k => k.IsActive == true).ToList();
+                Profile.LstMenu = _ent.KMS_Menu.Where(k => k.IsActive == true).ToList();
+                return View(Profile);
             }
             else
             {
                 return RedirectToAction("Index", "Auth");
-
             }
         }
-        public IActionResult Save(KMS_User Data)
+        public IActionResult Save(ProfileViewModel Data)
         {
             string UserName = HttpContext.Session.GetString("login");
             if (!string.IsNullOrEmpty(UserName))
             {
                 string MessageResult = "";
-                KMS_User uData = _ent.KMS_User.Where(w => w.Username == Data.Username).FirstOrDefault();
+                KMS_User uData = _ent.KMS_User.Where(w => w.Username == Data.User.Username).FirstOrDefault();
                 if (uData != null)
                 {
                     try
                     {
-                        uData.Username = Data.Username;
-                        //uData.Password = Extensions.HashPasswordAuth.EncryptString(Data.Password);
-                        uData.FName = Data.FName;
-                        uData.LName = Data.LName;
-                        uData.Email = Data.Email;
-                        uData.AddressL1 = Data.AddressL1;
-                        uData.AddressL2 = Data.AddressL2;
-                        uData.IsActive = Data.IsActive;
+
+                        List<KMS_UserPermission> LstPermission = new List<KMS_UserPermission>();
+                        List<KMS_UserMenu> LstMenu = new List<KMS_UserMenu>();
+                        foreach (var p in Data.LstPermission.Where(o => o.IsActive))
+                        {
+                            LstPermission.Add(new KMS_UserPermission
+                            {
+                                Username = Data.User.Username,
+                                PermissionId = p.PermissionId,
+                                IsActive = p.IsActive
+                            });
+                        }
+                        foreach (var m in Data.LstMenu.Where(o => o.IsActive))
+                        {
+                            LstMenu.Add(new KMS_UserMenu
+                            {
+                                Username = Data.User.Username,
+                                MenuId = m.MenuId,
+                                IsActive = m.IsActive
+                            });
+                        }
+                        _ent.RemoveRange(uData.Permission);
+                        _ent.RemoveRange(uData.Menus);
+                        uData.Username = Data.User.Username;
+                        //uData..Password = Extensions.HashPasswordAuth.EncryptString(Data.User.Password);
+                        uData.FName = Data.User.FName;
+                        uData.LName = Data.User.LName;
+                        uData.Email = Data.User.Email;
+                        uData.AddressL1 = Data.User.AddressL1;
+                        uData.AddressL2 = Data.User.AddressL2;
+                        uData.IsActive = Data.User.IsActive;
                         uData.Cod_update = UserName;
                         uData.Dtm_update = DateTime.Now;
+                        uData.Permission = LstPermission;
+                        uData.Menus = LstMenu;
                         _ent.SaveChanges();
                         MessageResult = "Update data success.";
 
@@ -119,19 +147,41 @@ namespace Express.Web.Controllers
                     try
                     {
                         int RowId = _ent.KMS_User.OrderByDescending(o => o.UserId).Select(s => (int)s.UserId).FirstOrDefault() + 1;
+                        List<KMS_UserPermission> LstPermission = new List<KMS_UserPermission>();
+                        List<KMS_UserMenu> LstMenu = new List<KMS_UserMenu>();
+                        foreach (var p in Data.LstPermission.Where(o => o.IsActive))
+                        {
+                            LstPermission.Add(new KMS_UserPermission
+                            {
+                                Username = Data.User.Username,
+                                PermissionId = p.PermissionId,
+                                IsActive = p.IsActive
+                            });
+                        }
+                        foreach (var m in Data.LstMenu.Where(o => o.IsActive))
+                        {
+                            LstMenu.Add(new KMS_UserMenu
+                            {
+                                Username = Data.User.Username,
+                                MenuId = m.MenuId,
+                                IsActive = m.IsActive
+                            });
+                        }
                         _ent.KMS_User.Add(new KMS_User
                         {
                             UserId = RowId,
-                            Username = Data.Username,
-                            Password = HashPasswordAuth.EncryptString(Data.Password),
-                            FName = Data.FName,
-                            LName = Data.LName,
-                            Email = Data.Email,
-                            AddressL1 = Data.AddressL1,
-                            AddressL2 = Data.AddressL2,
-                            IsActive = Data.IsActive,
+                            Username = Data.User.Username,
+                            Password = HashPasswordAuth.EncryptString(Data.User.Password),
+                            FName = Data.User.FName,
+                            LName = Data.User.LName,
+                            Email = Data.User.Email,
+                            AddressL1 = Data.User.AddressL1,
+                            AddressL2 = Data.User.AddressL2,
+                            IsActive = Data.User.IsActive,
                             Cod_create = UserName,
-                            Dtm_create = DateTime.Now
+                            Dtm_create = DateTime.Now,
+                            Permission = LstPermission,
+                            Menus = LstMenu
                         });
                         _ent.SaveChanges();
                         MessageResult = "Insert data success.";

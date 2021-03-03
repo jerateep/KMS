@@ -1,5 +1,4 @@
-﻿@model KMS.DB.Models.KMS_User
-
+﻿@model KMS.Web.ViewModels.ProfileViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -7,49 +6,124 @@
 <h2>Edit User</h2>
 
 <hr />
-<div class="row">
+<div class="row">&nbsp;
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-action="Save">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
+                <label asp-for="User.Username" class="control-label"></label>
+                <input asp-for="User.Username" class="form-control" />
+                <span asp-validation-for="User.Username" class="text-danger"></span>
             </div>
             @if (Model == null)
             {
                 <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label asp-for="User.Password" class="control-label"></label>
+                    <input asp-for="User.Password" class="form-control" />
+                    <span asp-validation-for="User.Password" class="text-danger"></span>
                 </div>
             }
-                <div class="form-group">
-                    <label asp-for="FName" class="control-label"></label>
-                    <input asp-for="FName" class="form-control" />
-                    <span asp-validation-for="FName" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="User.FName" class="control-label"></label>
+                <input asp-for="User.FName" class="form-control" />
+                <span asp-validation-for="User.FName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="User.LName" class="control-label"></label>
+                <input asp-for="User.LName" class="form-control" />
+                <span asp-validation-for="User.LName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="User.IsActive" /> @Html.DisplayNameFor(model => model.User.IsActive)
+                    </label>
                 </div>
-                <div class="form-group">
-                    <label asp-for="LName" class="control-label"></label>
-                    <input asp-for="LName" class="form-control" />
-                    <span asp-validation-for="LName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                        </label>
-                    </div>
-                </div>            
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </form>
+            </div>
+            <div class="form-group">
+                <div style="background-color:palegoldenrod;text-align:center;"><strong>Set Permission</strong></div><br />
+                <table border="1" class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Select</th>
+                            <th>Permission Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.LstPermission.Count(); i++)
+                        {
+                        <tr>
+                            @{
+                                int index = i + 1;
+                                Model.LstPermission[i].IsActive = false;
+                            }
+                            @if (Model.User != null)
+                            {
+                                foreach (var chk in Model.User.Permission.Where(o => o.PermissionId == Model.LstPermission[i].PermissionId))
+                                {
+                                    Model.LstPermission[i].IsActive = chk.IsActive;
+                                }
+                            }
+                            <td>@index</td>
+                            <td><input asp-for="@Model.LstPermission[i].IsActive" type="checkbox" /></td>
+                            <td>
+                                <label asp-for="@Model.LstPermission[i].PermissionId">@Model.LstPermission[i].PermissionName</label>
+                                @Html.HiddenFor(x => Model.LstPermission[i].PermissionId)
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+            <div style="background-color:palegoldenrod;text-align:center;"><strong>Set Menu permission</strong></div><br />
+                <table border="1" class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Select</th>
+                            <th>Menu Name</th>
+                            <th>Url</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.LstMenu.Count(); i++)
+                        {
+                            <tr>
+                                    @{
+                                        int index = i + 1;
+                                        Model.LstMenu[i].IsActive = false;
+                                     }
+                                    @if (Model.User != null)
+                                    {
+                                        foreach (var chk in Model.User.Menus.Where(o => o.MenuId == Model.LstMenu[i].MenuId))
+                                        {
+                                            Model.LstMenu[i].IsActive = chk.IsActive;
+                                        }
+                                    }
+                                    <td>@index</td>
+                                    <td><input asp-for="@Model.LstMenu[i].IsActive" type="checkbox" /></td>
+                                    <td>
+                                        <label asp-for="@Model.LstMenu[i].MenuId">@Model.LstMenu[i].MenuName</label>  @Html.HiddenFor(x => Model.LstMenu[i].MenuId)
+                                    </td>
+                                    <td>@Model.LstMenu[i].MenuUrl</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
     </div>
 </div>
 
