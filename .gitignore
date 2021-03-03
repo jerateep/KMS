@@ -2,3 +2,5 @@
 /.vscode
 /KMS.Web/bin
 /KMS.Web/obj
+/KMS.DB/bin
+/KMS.DB/obj

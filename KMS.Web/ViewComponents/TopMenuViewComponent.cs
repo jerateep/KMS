@@ -1,4 +1,5 @@
 ﻿
+using KMS.DB.Data;
 using KMS.DB.Models;
 using KMS.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -12,20 +13,20 @@ namespace KMS.Web.ViewComponents
 {
     public class TopMenuViewComponent : ViewComponent
     {
-        //private readonly DB_BackOfficeContext _Bkof;
-        //public TopMenuViewComponent(DB_BackOfficeContext Bkof)
-        //{
-        //    _Bkof = Bkof;
-        //}
+        private readonly MySQLContext _ent;
+        public TopMenuViewComponent(MySQLContext ent)
+        {
+            _ent = ent;
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string Username = HttpContext.Session.GetString("login");
+            string strUsername = HttpContext.Session.GetString("login");
 
-            var UserData = new KMS_User();
-            ViewBag.User = "ชื่อจริง" + " " + "นามสกุล";
-            ViewBag.UserName = "UserName";
-            ViewBag.Position = "ตำแหน่ง";
-            ViewBag.BU = "หน่วยงาน";
+            KMS_User UserData = _ent.KMS_User.Where(o => o.Username == strUsername && o.IsActive == true).FirstOrDefault();
+            ViewBag.User = UserData.FName + " " + UserData.LName;
+            ViewBag.UserName = strUsername;
+            ViewBag.Position = "ยังไม่เพิ่มฟิลล์";
+            ViewBag.BU = "ยังไม่เพิ่มฟิลล์";
             string ImageProfile = "";
             if (UserData.UserImage != null)
             {

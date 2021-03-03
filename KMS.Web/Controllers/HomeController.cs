@@ -1,4 +1,5 @@
 ﻿using KMS.DB.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,7 +21,15 @@ namespace KMS.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string strUsername = HttpContext.Session.GetString("login");
+            if (!string.IsNullOrEmpty(strUsername))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Auth");
+            }
         }
 
         public IActionResult Privacy()

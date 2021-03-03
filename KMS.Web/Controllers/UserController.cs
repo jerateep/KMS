@@ -23,11 +23,11 @@ namespace KMS.Web.Controllers
         }
         public IActionResult Profile()
         {
-            string Username = HttpContext.Session.GetString("login");
-            if (!string.IsNullOrEmpty(Username))
+            string strUsername = HttpContext.Session.GetString("login");
+            if (!string.IsNullOrEmpty(strUsername))
             {
                 KMS_User User = new KMS_User();
-                User = _ent.KMS_User.Where(k => k.Username == Username).FirstOrDefault();
+                User = _ent.KMS_User.Where(k => k.Username == strUsername).FirstOrDefault();
                 ViewBag.UserImage = User.UserImage != null ? Convert.ToBase64String(User.UserImage) : "";
                 ViewBag.MsgBox = TempData["MsgResult"];
                 return View(User);
