@@ -1,0 +1,56 @@
+@model IEnumerable<KMS.DB.Models.KMS_MSTASSET>
+@{
+    int index = 1;
+}
+<style>
+    .table > tbody > tr > td {
+        text-align:center;
+    }
+</style>
+<h3 style="text-align: center;">GooKey</h3>
+<hr />
+<form asp-action="SearchAssetKey">
+    <div class="col-lg-12">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <input type="text" name="_txtSearch" class="form-control">
+        </div>
+        <div><Button type="submit" class="btn btn-success">Search</Button> </div>
+    </div>
+</form>
+<div class="col-lg-12"><strong>@ViewBag.Result</strong></div>
+<div class="col-lg-12" >
+    <table id="TblUser" class="table table-responsive" style='overflow:auto; width:100%;position:relative;'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Html.DisplayNameFor(o => o.Asset_Code)</th>
+                <th>@Html.DisplayNameFor(o => o.Asset_Desc)</th>
+                <th>@Html.DisplayNameFor(o => o.AssetType.Type_Name)</th>
+                <th>@Html.DisplayNameFor(o => o.Location.LocationId_Desc)</th>
+                <th>Asset Status</th>
+                <th>@Html.DisplayNameFor(o => o.Key.Key_Box)</th>
+                <th>@Html.DisplayNameFor(o => o.Key.Key_Code)</th>
+                <th>Key Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var info in Model)
+            {
+                <tr >
+                    <td>@index</td>
+                    <td>@Html.DisplayFor(o => info.Asset_Code)</td>
+                    <td>@Html.DisplayFor(o => info.Asset_Desc)</td>
+                    <td>@Html.DisplayFor(o => info.AssetType.Type_Name)</td>
+                    <td>@Html.DisplayFor(o => info.Location.LocationId_Desc)</td>
+                    <td>@Html.DisplayFor(o => info.IsActive)</td>
+                    <td>@Html.DisplayFor(o => info.Key.Key_Box)</td>
+                    <td>@Html.DisplayFor(o => info.Key.Key_Code)</td>
+                    <td>@Html.DisplayFor(o => info.Key.IsActive)</td>
+                </tr>
+
+                index++;
+            }
+        </tbody>
+    </table>
+</div>
